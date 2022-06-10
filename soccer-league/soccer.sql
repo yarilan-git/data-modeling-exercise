@@ -11,6 +11,9 @@ CREATE TABLE match
     date DATE NOT NULL
 );
 
+CREATE INDEX match_date_index on match(date);
+
+
 INSERT INTO match
     (team_1, team_2, date)
 VALUES
@@ -37,6 +40,9 @@ CREATE TABLE player
     team_id INT REFERENCES team(id)
 );
 
+CREATE INDEX player_fname ON player(first_name);
+CREATE INDEX player_lname ON player(last_name);
+
 INSERT INTO player
     (first_name, last_name, team_id)
 VALUES
@@ -60,6 +66,9 @@ CREATE TABLE referee
     first_name VARCHAR(20) NOT NULL,
     last_name VARCHAR(20) NOT NULL
 );
+
+CREATE INDEX ref_fname ON referee(first_name);
+CREATE INDEX ref_lname ON referee(last_name);
 
 INSERT INTO referee
     (first_name, last_name)

@@ -9,6 +9,8 @@ CREATE TABLE region
     name VARCHAR(20) NOT NULL
 );
 
+CREATE UNIQUE INDEX region_name_index on region(name);
+
 INSERT INTO region
     (name)
 VALUES
@@ -20,6 +22,8 @@ CREATE TABLE usr
     user_name VARCHAR(20) NOT NULL,
     preferred_region INT REFERENCES region(id)
 );
+
+CREATE UNIQUE INDEX user_name_index on usr(user_name);
 
 INSERT INTO usr
     (user_name, preferred_region)
@@ -38,12 +42,15 @@ INSERT INTO location
 VALUES
     ('Main Street', 1);
 
+CREATE INDEX location_name_index on location(name);
 
 CREATE TABLE category
 (
     id SERIAL PRIMARY KEY,
     name VARCHAR(20) NOT NULL
 );
+
+CREATE UNIQUE INDEX cat_name_index on category(name);
 
 INSERT INTO category
     (name)
@@ -61,6 +68,8 @@ CREATE TABLE post
     region_id INT REFERENCES region(id),
     category_id INT REFERENCES category(id)
 );
+
+CREATE INDEX post_title_index on post(title);
 
 INSERT INTO post
     (title, content, user_id, location_id, region_id, category_id)

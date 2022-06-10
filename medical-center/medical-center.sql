@@ -10,6 +10,9 @@ CREATE TABLE doctor
     first_name VARCHAR(20)
 );
 
+CREATE INDEX doc_fname_index on doctor(first_name);
+CREATE INDEX doc_lname_index on doctor(last_name);
+
 INSERT INTO doctor
     (last_name, first_name)
 VALUES
@@ -25,6 +28,9 @@ CREATE TABLE patient
     first_name VARCHAR(20)
 );
 
+CREATE INDEX patient_fname_index on patient(first_name);
+CREATE INDEX patient_lname_index on patient(last_name);
+
 INSERT INTO patient
     (first_name, last_name)
 VALUES
@@ -36,6 +42,9 @@ CREATE TABLE disease
     id SERIAL PRIMARY KEY,
     name VARCHAR(30)
 );
+
+CREATE UNIQUE INDEX disease_name_index on disease(name);
+
 
 INSERT INTO disease
     (name)
@@ -51,6 +60,8 @@ CREATE TABLE visit
     patient_id INT REFERENCES patient(id) NOT NULL
 );
 
+CREATE INDEX visit_date_index on visit(date);
+
 INSERT INTO visit
     (date, doctor_id, patient_id)
 VALUES
@@ -64,6 +75,8 @@ CREATE TABLE diagnosis
   disease_id INT REFERENCES disease(id) NOT NULL,
   doctor_id INT REFERENCES doctor(id) NOT NULL
 );
+
+CREATE INDEX diagnosis_patient_index on diagnosis(patient_id);
 
 INSERT INTO diagnosis
     (patient_id, disease_id, doctor_id)
